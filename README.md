@@ -2,6 +2,11 @@ This is a [Kosko] project bootstrapped with `create-kosko` command.
 
 ## Getting Started
 
+Before you start, install minikube (or whatever else to provide k8s environment) and docker. then run command below:
+```sh
+sudo docker buildx build -t backend-node-app:figleter ./app
+```
+
 Generate Kubernetes manifests with the following command.
 
 ```sh

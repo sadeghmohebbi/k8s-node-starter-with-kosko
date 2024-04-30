@@ -2,12 +2,13 @@ import { Deployment } from "kubernetes-models/apps/v1/Deployment";
 import { Service } from "kubernetes-models/v1";
 
 const name = "backend-node-app"
-const labels = { app: name }
+const labels = { name }
 const port = 3030
 
 
 const deployment = new Deployment({
   metadata: {
+    namespace: "default",
     name
   },
   spec: {
@@ -40,6 +41,7 @@ const deployment = new Deployment({
 
 const service = new Service({
   metadata: {
+    namespace: "default",
     name: 'edge'
   },
   spec: {
@@ -49,9 +51,11 @@ const service = new Service({
     ports: [
       {
         port: 8030,
-        targetPort: port
+        targetPort: port,
+        name: 'http'
       }
-    ]
+    ],
+    type: 'LoadBalancer'
   }
 })
 

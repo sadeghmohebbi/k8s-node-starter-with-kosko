@@ -4,7 +4,10 @@ This is a [Kosko] project bootstrapped with `create-kosko` command.
 
 Before you start, install minikube (or whatever else to provide k8s environment) and docker. then run command below:
 ```sh
-sudo docker buildx build -t backend-node-app:figleter ./app
+docker buildx build -t backend-node-app:figleter ./app
+# in case you install minikube
+docker save backend-node-app > backend-node-app.tar
+minikube image load backend-node-app.tar
 ```
 
 Generate Kubernetes manifests with the following command.
@@ -17,6 +20,9 @@ The result will be printed in the console. You can pipe the output to `kubectl` 
 
 ```sh
 npm run --silent generate | kubectl apply -f -
+# in case when you minikube
+minikube tunnel
+kubectl get services # to access edge loadbalancer ip
 ```
 
 When `--env` option is set, Kosko will read variables from environment files. Then you can fetch variables with `@kosko/env` package.
